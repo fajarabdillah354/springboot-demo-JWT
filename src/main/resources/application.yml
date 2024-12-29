@@ -1,0 +1,21 @@
+server:
+    port: 8005
+spring:
+    application:
+        name: springboot-jwt-example
+    datasource:
+        password: pwd123
+        url: jdbc:mysql://localhost:3306/demo_jwt
+        username: fajar
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format-sql: true
+        show-sql: true
+security:
+    jwt:
+        secret-key: 543bc1d4fa6a8e275c2e75258eebe70b7495bf2e3d068eb01b0e66920dc52496
+# 1h in millisecond
+        expiration-time: 3600000
