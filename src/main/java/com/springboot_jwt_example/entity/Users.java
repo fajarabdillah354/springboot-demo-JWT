@@ -11,10 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@Entity
 @Table(name = "users")
+@Entity
 public class Users implements UserDetails {
 
     @Id
@@ -35,6 +33,11 @@ public class Users implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -63,4 +66,23 @@ public class Users implements UserDetails {
     }
 
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

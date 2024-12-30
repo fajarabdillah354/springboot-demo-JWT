@@ -10,9 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class AuthenticationService {
     private final UsersRepository usersRepository;
@@ -21,19 +18,18 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(
-            UsersRepository userRepository,
-            AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder) {
-        this.authenticationManager = authenticationManager;
-        this.usersRepository = userRepository;
+    public AuthenticationService(UsersRepository usersRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
+        this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
-    //REGISTER
+
     public Users signup(RegisterUserDto input) {
+
+
         Users user = new Users();
-        user.setFullName(input.getFullname());
+        user.setFullName(input.getFullName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
 
@@ -41,8 +37,6 @@ public class AuthenticationService {
         return usersRepository.save(user);
     }
 
-
-    //LOGIN
     public Users authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -54,12 +48,4 @@ public class AuthenticationService {
         return usersRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
-
-
-    //GETALL
-    public List<Users> getUser(){
-        return usersRepository.findAll();
-    }
-
-
 }
