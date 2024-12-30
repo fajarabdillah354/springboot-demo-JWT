@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class UserService {
-
     private final UsersRepository usersRepository;
 
     public UserService(UsersRepository usersRepository) {
@@ -19,8 +18,11 @@ public class UserService {
 
 
     public List<Users> allUsers() {
-        return usersRepository.findAll();
-    }
+        List<Users> users = new ArrayList<>();
 
+        usersRepository.findAll().forEach(users::add);
+
+        return users;
+    }
 
 }
